@@ -1,7 +1,7 @@
 import UIKit
 
 protocol FeedViewProtocol: AnyObject {
-    
+    func showPosts(posts: [FeedPostVM])
 }
 
 class FeedView: UIViewController {
@@ -9,11 +9,8 @@ class FeedView: UIViewController {
     var presenter: FeedPresenterProtocol?
     
     private var tableView = UITableView()
+    
     private var posts: [FeedPostVM] = [
-        FeedPostVM(title: "POST1", body: "SDFSDFSDFSDF"),
-        FeedPostVM(title: "POST1", body: "SDFSDFSDFSDF"),
-        FeedPostVM(title: "POST1", body: "SDFSDFSDFSDF"),
-        FeedPostVM(title: "POST1", body: "SDFSDFSDFSDF")
     ]
     
     override func viewDidLoad() {
@@ -22,7 +19,6 @@ class FeedView: UIViewController {
         view.backgroundColor =  UIColor.FeedBackgroundColor
         
         setUpUI()
-        
         presenter?.viewDidLoad()
     }
     
@@ -52,6 +48,11 @@ class FeedView: UIViewController {
 
 extension FeedView: FeedViewProtocol {
     
+    func showPosts(posts: [FeedPostVM]) {
+        self.posts = posts
+        tableView.reloadData()
+        print(posts)
+    }
 }
 
 extension FeedView: UITableViewDelegate, UITableViewDataSource {
