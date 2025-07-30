@@ -22,6 +22,8 @@ class FeedView: UIViewController {
         view.backgroundColor =  UIColor.FeedBackgroundColor
         
         setUpUI()
+        
+        presenter?.viewDidLoad()
     }
     
     private func setUpUI() {
