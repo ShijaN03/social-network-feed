@@ -43,10 +43,10 @@ class FeedCell: UITableViewCell {
         NSLayoutConstraint.activate([
             contentView.heightAnchor.constraint(equalToConstant: 400),
         
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             
             feedLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
             feedLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),

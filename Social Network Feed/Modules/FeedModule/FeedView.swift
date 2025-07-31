@@ -8,10 +8,10 @@ class FeedView: UIViewController {
     
     var presenter: FeedPresenterProtocol?
     
+    private let headView = HeadView(frame: .zero, title: "Лента")
     private var tableView = UITableView()
     
-    private var posts: [FeedPostVM] = [
-    ]
+    private var posts: [FeedPostVM] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,21 @@ class FeedView: UIViewController {
     }
     
     private func setUpUI() {
+        setUpHeadView()
         setUpTableView()
+    }
+    
+    private func setUpHeadView() {
+        view.addSubview(headView)
+        
+        headView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            headView.topAnchor.constraint(equalTo: view.topAnchor),
+            headView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headView.heightAnchor.constraint(equalToConstant: 120)
+        ])
     }
     
     private func setUpTableView() {
@@ -35,10 +49,12 @@ class FeedView: UIViewController {
         
         tableView.register(FeedCell.self, forCellReuseIdentifier: "FeedCell")
         
+        tableView.separatorStyle = .none
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: headView.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -51,7 +67,7 @@ extension FeedView: FeedViewProtocol {
     func showPosts(posts: [FeedPostVM]) {
         self.posts = posts
         tableView.reloadData()
-        print(posts)
+        
     }
 }
 
