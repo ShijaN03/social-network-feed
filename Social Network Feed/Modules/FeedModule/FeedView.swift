@@ -50,6 +50,8 @@ class FeedView: UIViewController {
         tableView.register(FeedCell.self, forCellReuseIdentifier: "FeedCell")
         
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 300
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -67,6 +69,7 @@ extension FeedView: FeedViewProtocol {
     func showPosts(posts: [FeedPostVM]) {
         self.posts = posts
         tableView.reloadData()
+        print(posts)
         
     }
 }
