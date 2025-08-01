@@ -19,6 +19,11 @@ class FeedCell: UITableViewCell {
         setUpUI()
     }
     
+    override func layoutSubviews() {
+        avatar.layer.cornerRadius = avatar.frame.size.width / 2
+        avatar.clipsToBounds = true
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -27,7 +32,7 @@ class FeedCell: UITableViewCell {
         postBody.text = entity.body
         postTitle.text = entity.title
         username.text = entity.userName
-        
+        avatar.load(from: entity.avatarURL)
     }
     
     private func setUpUI() {
@@ -105,10 +110,7 @@ class FeedCell: UITableViewCell {
         
         avatarBackground.backgroundColor = UIColor.FeedPostUserWithoutAvatarBackgroundColor
         avatarBackground.layer.cornerRadius = 16
-        avatar.image = UIImage(systemName: "person.crop.circle")
         avatar.tintColor = UIColor.FeedPostUserWithoutAvatarColor
-        avatar.contentMode = .scaleAspectFill
-        avatar.clipsToBounds = true
         
         avatarBackground.addSubview(avatar)
         

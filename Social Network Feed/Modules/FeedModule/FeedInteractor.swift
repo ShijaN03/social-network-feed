@@ -1,3 +1,5 @@
+import Foundation
+
 protocol FeedInteractorInputProtocol: AnyObject {
     func loadUsers()
     func loadPosts()
@@ -32,7 +34,7 @@ class FeedInteractor: FeedInteractorInputProtocol {
         apiService?.extractUsers { [weak self] result in
             switch result {
             case .success(let userDTOs):
-                let users = userDTOs.map { User(id: $0.id, name: $0.name) }
+                let users = userDTOs.map { User(id: $0.id, name: $0.name, avatarURL: URL(string: "https://picsum.photos/seed/user\($0.id)/200")!) }
                 self?.users = users
                 self?.loadPosts()
             case .failure(_):
@@ -48,15 +50,17 @@ class FeedInteractor: FeedInteractorInputProtocol {
                     guard let self = self else { return }
                     
                     let posts: [Post] = postDTOs.map { postDTO in
-                        let userName = self.users.first(where: { $0.id == postDTO.userId })?.name ?? "Без имени"
+                        
+                        let user = self.users.first(where: { $0.id == postDTO.userId })
                         
                         return Post(
                             id: postDTO.id,
                             userId: postDTO.userId,
                             title: postDTO.title,
                             body: postDTO.body,
-                            userName: userName
-                        )
+                            userName: user?.name ?? "Anonymous User",
+                            avatarURL: (user?.avatarURL)!
+                            )
                     }
                     
                     self.coreDataRepository?.savePosts(posts)

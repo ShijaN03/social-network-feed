@@ -25,6 +25,7 @@ final class CoreDataPostRepository {
             entity.title = post.title
             entity.body = post.body
             entity.userName = post.userName
+            entity.avatarURL = post.avatarURL.absoluteString
         }
         
         CoreDataManager.shared.saveContext()
@@ -41,7 +42,8 @@ final class CoreDataPostRepository {
                     userId: Int($0.userId),
                     title: $0.title ?? "",
                     body: $0.body ?? "",
-                    userName: $0.userName ?? ""
+                    userName: $0.userName ?? "",
+                    avatarURL: URL(string: $0.avatarURL ?? "https://picsum.photos/200")!
                 )
             }
         } catch {
