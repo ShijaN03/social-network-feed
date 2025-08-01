@@ -23,7 +23,7 @@ class FeedInteractor: FeedInteractorInputProtocol {
     }
     
     func fetchData() {
-        checkCache()
+        loadCoreDataPosts()
         loadUsers()
         
     }
@@ -58,22 +58,19 @@ class FeedInteractor: FeedInteractorInputProtocol {
                             userName: userName
                         )
                     }
-                    self.coreDataRepository?.savePosts(posts)
                     
+                    self.coreDataRepository?.savePosts(posts)
                     self.presenter?.didFetchPosts(posts: posts)
                     
-                case .failure(let error):
+                case .failure(_):
                     print("error")
                 }
             }
         }
   
-    func checkCache() {
-        let cachedPosts = coreDataRepository?.loadPosts()
-        
-        if !cachedPosts!.isEmpty {
-            presenter?.didFetchPosts(posts: cachedPosts!)
-        }
+    func loadCoreDataPosts() {
+        guard let cachedPosts = coreDataRepository?.loadPosts(), !cachedPosts.isEmpty else { return }
+        presenter?.didFetchPosts(posts: cachedPosts)
     }
 }
 

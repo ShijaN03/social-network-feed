@@ -3,6 +3,7 @@ import Foundation
 protocol FeedPresenterProtocol: AnyObject {
     
     func viewDidLoad()
+    func didPullToRefresh()
 }
 
 class FeedPresenter {
@@ -18,6 +19,10 @@ class FeedPresenter {
 extension FeedPresenter: FeedPresenterProtocol {
     
     func viewDidLoad() {
+        interactor?.fetchData()
+    }
+    
+    func didPullToRefresh() {
         interactor?.fetchData()
     }
     

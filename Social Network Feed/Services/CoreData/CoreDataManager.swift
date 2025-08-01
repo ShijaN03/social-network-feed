@@ -10,12 +10,12 @@ final class CoreDataManager {
         persistentContainer = NSPersistentContainer(name: "DataModel")
         persistentContainer.loadPersistentStores { description, error in
             if let error = error {
-                fatalError("\(error)")
+                print("\(error)")
             }
         }
     }
     
-    var contex: NSManagedObjectContext {
+    var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
     

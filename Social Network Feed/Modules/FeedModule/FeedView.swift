@@ -8,6 +8,7 @@ class FeedView: UIViewController {
     
     var presenter: FeedPresenterProtocol?
     
+    private let refreshControl = UIRefreshControl()
     private let headView = HeadView(frame: .zero, title: "Лента")
     private var tableView = UITableView()
     
@@ -17,14 +18,24 @@ class FeedView: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor =  UIColor.FeedBackgroundColor
-        
         setUpUI()
         presenter?.viewDidLoad()
     }
     
+    @objc private func handleRefresh() {
+        presenter?.didPullToRefresh()
+    }
+    
     private func setUpUI() {
+        setUpRefreshControl()
         setUpHeadView()
         setUpTableView()
+    }
+    
+    private func setUpRefreshControl() {
+        
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
     }
     
     private func setUpHeadView() {
@@ -69,7 +80,7 @@ extension FeedView: FeedViewProtocol {
     func showPosts(posts: [FeedPostVM]) {
         self.posts = posts
         tableView.reloadData()
-        print(posts)
+        refreshControl.endRefreshing()
         
     }
 }

@@ -1,6 +1,7 @@
 import CoreData
 
 final class CoreDataPostRepository {
+    
     private let context: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {

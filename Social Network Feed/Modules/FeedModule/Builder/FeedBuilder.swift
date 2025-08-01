@@ -4,7 +4,7 @@ final class FeedBuilder {
     
     static func build() -> UIViewController {
         
-        let coreDataRepository = CoreDataPostRepository(context: CoreDataManager.shared.contex)
+        let coreDataRepository = CoreDataPostRepository(context: CoreDataManager.shared.context)
         let apiService = APIService()
         let view = FeedView()
         let presenter = FeedPresenter()
