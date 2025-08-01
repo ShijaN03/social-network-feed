@@ -25,9 +25,12 @@ class FeedInteractor: FeedInteractorInputProtocol {
     }
     
     func fetchData() {
-        loadCoreDataPosts()
-        loadUsers()
-        
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.async {
+                self.loadCoreDataPosts()
+                self.loadUsers()
+            }
+        }
     }
     
     func loadUsers() {

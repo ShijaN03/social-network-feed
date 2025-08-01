@@ -8,6 +8,7 @@ class FeedView: UIViewController {
     
     var presenter: FeedPresenterProtocol?
     
+    private let loadingIndicator = UIActivityIndicatorView()
     private let refreshControl = UIRefreshControl()
     private let headView = HeadView(frame: .zero, title: "Лента")
     private var tableView = UITableView()
@@ -27,9 +28,26 @@ class FeedView: UIViewController {
     }
     
     private func setUpUI() {
-        setUpRefreshControl()
         setUpHeadView()
         setUpTableView()
+        setUpRefreshControl()
+        showLoadingIndicator()
+    }
+    
+    private func showLoadingIndicator() {
+        view.addSubview(loadingIndicator)
+        loadingIndicator.style = .large
+        loadingIndicator.color = .gray
+        loadingIndicator.hidesWhenStopped = true
+        
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        loadingIndicator.startAnimating()
     }
     
     private func setUpRefreshControl() {
@@ -81,6 +99,7 @@ extension FeedView: FeedViewProtocol {
         self.posts = posts
         tableView.reloadData()
         refreshControl.endRefreshing()
+        loadingIndicator.stopAnimating()
         
     }
 }
