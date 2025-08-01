@@ -11,6 +11,7 @@ class FeedCell: UITableViewCell {
     private let userInfoStack = UIStackView()
     private let postTitle = UILabel()
     private let postBody = UILabel()
+    private let likeImage = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,9 +31,11 @@ class FeedCell: UITableViewCell {
     }
     
     private func setUpUI() {
+        
         setUpPostView()
         setUpAvatar()
         setUpUserInfo()
+        setUpLikeButton()
         setUpPostTitle()
         setUpPostBody()
         
@@ -58,6 +61,11 @@ class FeedCell: UITableViewCell {
     
     private func setUpUserInfo() {
         
+        let background = UIView()
+        
+        background.backgroundColor = UIColor.FeedPostUserInfoBackgroundColor
+        background.layer.cornerRadius = 20
+        
         username.textColor = UIColor.FeedPostUsernameColor
         username.font = UIFont.boldSystemFont(ofSize: 20)
         username.numberOfLines = 1
@@ -69,17 +77,26 @@ class FeedCell: UITableViewCell {
         userInfoStack.addArrangedSubview(avatarBackground)
         userInfoStack.addArrangedSubview(username)
         
-        postView.addSubview(userInfoStack)
+        background.addSubview(userInfoStack)
+        postView.addSubview(background)
         
         username.translatesAutoresizingMaskIntoConstraints = false
         userInfoStack.translatesAutoresizingMaskIntoConstraints = false
+        background.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
-            userInfoStack.topAnchor.constraint(equalTo: postView.topAnchor, constant: 10),
-            userInfoStack.leadingAnchor.constraint(equalTo: postView.leadingAnchor, constant: 10),
-            userInfoStack.trailingAnchor.constraint(equalTo: postView.trailingAnchor, constant: -50),
-            userInfoStack.heightAnchor.constraint(equalToConstant: 30)
+            background.topAnchor.constraint(equalTo: postView.topAnchor, constant: 10),
+            background.leadingAnchor.constraint(equalTo: postView.leadingAnchor, constant: 10),
+            background.trailingAnchor.constraint(lessThanOrEqualTo: postView.trailingAnchor, constant: -50),
+            background.heightAnchor.constraint(equalToConstant: 40),
+            
+            userInfoStack.topAnchor.constraint(equalTo: background.topAnchor),
+            userInfoStack.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 5),
+            userInfoStack.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -8),
+            userInfoStack.bottomAnchor.constraint(equalTo: background.bottomAnchor)
+            
+            
         ])
         
     }
@@ -109,24 +126,58 @@ class FeedCell: UITableViewCell {
         
     }
     
+    private func setUpLikeButton() {
+        
+        postView.addSubview(likeImage)
+        
+        likeImage.image = UIImage(systemName: "heart")
+        likeImage.tintColor = .gray
+        
+        likeImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            likeImage.heightAnchor.constraint(equalToConstant: 32),
+            likeImage.widthAnchor.constraint(equalToConstant: 32),
+            
+            likeImage.topAnchor.constraint(equalTo: postView.topAnchor, constant: 13),
+            likeImage.trailingAnchor.constraint(equalTo: postView.trailingAnchor, constant: -13),
+            
+        ])
+    }
+    
     private func setUpPostTitle() {
-        postView.addSubview(postTitle)
+        
+        let background = UIView()
+        
+        background.backgroundColor = UIColor.FeedPostBackgroundColor
+        background.layer.cornerRadius = 16
+        
+        background.addSubview(postTitle)
+        
+        postView.addSubview(background)
         
         postTitle.textColor = UIColor.FeedPostTitleColor
         postTitle.font = UIFont.boldSystemFont(ofSize: 20)
         postTitle.numberOfLines = 1
         
+        background.translatesAutoresizingMaskIntoConstraints = false
         postTitle.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            postTitle.topAnchor.constraint(equalTo: username.bottomAnchor, constant: 10),
-            postTitle.leadingAnchor.constraint(equalTo: postView.leadingAnchor, constant: 10),
-            postTitle.trailingAnchor.constraint(equalTo: postView.trailingAnchor, constant: -50),
-            postTitle.heightAnchor.constraint(equalToConstant: 30)
+            background.topAnchor.constraint(equalTo: username.bottomAnchor, constant: 20),
+            background.leadingAnchor.constraint(equalTo: postView.leadingAnchor, constant: 10),
+            background.trailingAnchor.constraint(lessThanOrEqualTo: postView.trailingAnchor, constant: -50),
+            background.heightAnchor.constraint(equalToConstant: 30),
+            
+            postTitle.topAnchor.constraint(equalTo: background.topAnchor),
+            postTitle.leadingAnchor.constraint(equalTo: background.leadingAnchor, constant: 0), // Если решу удалить background
+            postTitle.trailingAnchor.constraint(equalTo: background.trailingAnchor, constant: -8),
+            postTitle.bottomAnchor.constraint(equalTo: background.bottomAnchor)
         ])
     }
     
     private func setUpPostBody() {
+        
         postView.addSubview(postBody)
         
         postBody.textColor = UIColor.FeedPostBodyColor
@@ -143,7 +194,6 @@ class FeedCell: UITableViewCell {
             
         ])
     }
-    
     
 }
 

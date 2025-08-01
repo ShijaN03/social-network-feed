@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4C8AB8AF2E3CB78E0096F599 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8AB8AE2E3CB78D0096F599 /* CoreData.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4CB41A0B2E38EDBD00277FB0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C8AB8AE2E3CB78D0096F599 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4CB419F42E38EDBC00277FB0 /* Social Network Feed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Social Network Feed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB41A0A2E38EDBD00277FB0 /* Social Network FeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Social Network FeedTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CB41A142E38EDBD00277FB0 /* Social Network FeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Social Network FeedUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C8AB8AF2E3CB78E0096F599 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,12 +91,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C8AB8AD2E3CB78D0096F599 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C8AB8AE2E3CB78D0096F599 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4CB419EB2E38EDBC00277FB0 = {
 			isa = PBXGroup;
 			children = (
 				4CB419F62E38EDBC00277FB0 /* Social Network Feed */,
 				4CB41A0D2E38EDBD00277FB0 /* Social Network FeedTests */,
 				4CB41A172E38EDBD00277FB0 /* Social Network FeedUITests */,
+				4C8AB8AD2E3CB78D0096F599 /* Frameworks */,
 				4CB419F52E38EDBC00277FB0 /* Products */,
 			);
 			sourceTree = "<group>";

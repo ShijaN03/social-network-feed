@@ -11,14 +11,21 @@ protocol FeedInteractorOutputProtocol: AnyObject {
 
 class FeedInteractor: FeedInteractorInputProtocol {
     
+    private let coreDataRepository: CoreDataPostRepository?
     weak var presenter: FeedInteractorOutputProtocol?
     
     var apiService: APIServiceProtocol?
     
     private var users: [User] = []
     
+    init(coreDataRepository: CoreDataPostRepository?) {
+        self.coreDataRepository = coreDataRepository
+    }
+    
     func fetchData() {
+        checkCache()
         loadUsers()
+        
     }
     
     func loadUsers() {
@@ -51,6 +58,7 @@ class FeedInteractor: FeedInteractorInputProtocol {
                             userName: userName
                         )
                     }
+                    self.coreDataRepository?.savePosts(posts)
                     
                     self.presenter?.didFetchPosts(posts: posts)
                     
@@ -60,6 +68,13 @@ class FeedInteractor: FeedInteractorInputProtocol {
             }
         }
   
+    func checkCache() {
+        let cachedPosts = coreDataRepository?.loadPosts()
+        
+        if !cachedPosts!.isEmpty {
+            presenter?.didFetchPosts(posts: cachedPosts!)
+        }
+    }
 }
 
 
