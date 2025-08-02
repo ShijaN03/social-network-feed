@@ -156,8 +156,8 @@ class FeedCell: UITableViewCell {
             likeButton.heightAnchor.constraint(equalToConstant: 52),
             likeButton.widthAnchor.constraint(equalToConstant: 52),
             
-            likeButton.topAnchor.constraint(equalTo: postView.topAnchor, constant: 13),
-            likeButton.trailingAnchor.constraint(equalTo: postView.trailingAnchor, constant: -13),
+            likeButton.topAnchor.constraint(equalTo: postView.topAnchor, constant: 5),
+            likeButton.trailingAnchor.constraint(equalTo: postView.trailingAnchor, constant: -5),
             
         ])
     }

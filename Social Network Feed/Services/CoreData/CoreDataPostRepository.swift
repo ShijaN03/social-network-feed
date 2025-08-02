@@ -24,7 +24,6 @@ final class CoreDataPostRepository {
         }
     }
     
-    
     func savePosts(_ posts: [Post]) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CoreDataPost.fetchRequest()
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
