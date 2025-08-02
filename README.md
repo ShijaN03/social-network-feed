@@ -2,8 +2,12 @@
 
 Упрощённая лента социальной сети с загрузкой постов и пользователей, лайками, offline-режимом и поддержкой pull-to-refresh.
 
-![Загрузка постов](screens/loading.png) | ![Лента](screens/feed.png) | ![Лайки](screens/likes.png) | ![pull-to-refresh](screens/pull-to-refresh.png)
-
+<p align="center">
+  <img src="screens/loading.png" alt="Загрузка постов" width="200"/>
+  <img src="screens/feed.png" alt="Лента" width="200"/>
+  <img src="screens/likes.png" alt="Лайки" width="200"/>
+  <img src="screens/pull-to-refresh.png" alt="pull-to-refresh" width="200"/>
+</p>
 
 ---
 
