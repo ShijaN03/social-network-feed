@@ -8,6 +8,23 @@ final class CoreDataPostRepository {
         self.context = context
     }
     
+    func updateLike(for postId: Int, isLiked: Bool) {
+        let request = CoreDataPost.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %d", postId)
+        
+        do {
+            let fetchResult = try context.fetch(request)
+            
+            let post = fetchResult.first
+            post?.isLiked = isLiked
+            CoreDataManager.shared.saveContext()
+            
+        } catch {
+            print("\(error)")
+        }
+    }
+    
+    
     func savePosts(_ posts: [Post]) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = CoreDataPost.fetchRequest()
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
@@ -43,7 +60,8 @@ final class CoreDataPostRepository {
                     title: $0.title ?? "",
                     body: $0.body ?? "",
                     userName: $0.userName ?? "",
-                    avatarURL: URL(string: $0.avatarURL ?? "https://picsum.photos/200")!
+                    avatarURL: URL(string: $0.avatarURL ?? "https://picsum.photos/200")!,
+                    isLiked: $0.isLiked
                 )
             }
         } catch {

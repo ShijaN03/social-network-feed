@@ -4,6 +4,7 @@ protocol FeedInteractorInputProtocol: AnyObject {
     func loadUsers()
     func loadPosts()
     func fetchData()
+    func updateLike(forPostId: Int, isLiked: Bool)
     var apiService: APIServiceProtocol? { get set }
 }
 
@@ -22,6 +23,10 @@ class FeedInteractor: FeedInteractorInputProtocol {
     
     init(coreDataRepository: CoreDataPostRepository?) {
         self.coreDataRepository = coreDataRepository
+    }
+    
+    func updateLike(forPostId: Int, isLiked: Bool) {
+        coreDataRepository?.updateLike(for: forPostId, isLiked: isLiked)
     }
     
     func fetchData() {
@@ -62,7 +67,8 @@ class FeedInteractor: FeedInteractorInputProtocol {
                             title: postDTO.title,
                             body: postDTO.body,
                             userName: user?.name ?? "Anonymous User",
-                            avatarURL: (user?.avatarURL)!
+                            avatarURL: (user?.avatarURL)!,
+                            isLiked: false
                             )
                     }
                     

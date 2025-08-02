@@ -118,6 +118,14 @@ extension FeedView: UITableViewDelegate, UITableViewDataSource {
         
         cell.configure(with: post)
         
+        cell.likeButtonTapped = {
+            self.posts[indexPath.row].isLiked.toggle()
+            self.tableView.reloadRows(at: [indexPath], with: .none)
+            
+            let post = self.posts[indexPath.row]
+            self.presenter?.toggleLike(forPostId: post.id, isLiked: post.isLiked)
+        }
+        
         return cell
     }
     

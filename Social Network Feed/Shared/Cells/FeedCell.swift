@@ -11,11 +11,12 @@ class FeedCell: UITableViewCell {
     private let userInfoStack = UIStackView()
     private let postTitle = UILabel()
     private let postBody = UILabel()
-    private let likeImage = UIImageView()
+    private let likeButton = UIButton()
+    
+    var likeButtonTapped: (() -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setUpUI()
     }
     
@@ -28,11 +29,24 @@ class FeedCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func likeTapped() {
+        likeButtonTapped?()
+        
+    }
+    
     func configure(with entity: FeedPostVM) {
         postBody.text = entity.body
         postTitle.text = entity.title
         username.text = entity.userName
         avatar.load(from: entity.avatarURL)
+        
+        likeButton.tintColor = entity.isLiked ? .red : .gray
+        likeButton.setImage(
+            UIImage(systemName: entity.isLiked ? "heart.fill" : "heart",
+                    withConfiguration: UIImage.SymbolConfiguration(
+                        pointSize: 28,
+                        weight: .regular)),
+            for: .normal)
     }
     
     private func setUpUI() {
@@ -43,6 +57,8 @@ class FeedCell: UITableViewCell {
         setUpLikeButton()
         setUpPostTitle()
         setUpPostBody()
+        
+        postView.bringSubviewToFront(likeButton)
         
         backgroundColor = .clear
         
@@ -130,19 +146,18 @@ class FeedCell: UITableViewCell {
     
     private func setUpLikeButton() {
         
-        postView.addSubview(likeImage)
+        postView.addSubview(likeButton)
         
-        likeImage.image = UIImage(systemName: "heart")
-        likeImage.tintColor = .gray
+        likeButton.addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
         
-        likeImage.translatesAutoresizingMaskIntoConstraints = false
+        likeButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            likeImage.heightAnchor.constraint(equalToConstant: 32),
-            likeImage.widthAnchor.constraint(equalToConstant: 32),
+            likeButton.heightAnchor.constraint(equalToConstant: 52),
+            likeButton.widthAnchor.constraint(equalToConstant: 52),
             
-            likeImage.topAnchor.constraint(equalTo: postView.topAnchor, constant: 13),
-            likeImage.trailingAnchor.constraint(equalTo: postView.trailingAnchor, constant: -13),
+            likeButton.topAnchor.constraint(equalTo: postView.topAnchor, constant: 13),
+            likeButton.trailingAnchor.constraint(equalTo: postView.trailingAnchor, constant: -13),
             
         ])
     }

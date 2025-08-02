@@ -15,6 +15,7 @@ extension CoreDataPost {
     @NSManaged public var body: String?
     @NSManaged public var userName: String?
     @NSManaged public var avatarURL: String?
+    @NSManaged public var isLiked: Bool
 
 }
 
